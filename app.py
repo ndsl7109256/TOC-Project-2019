@@ -3,7 +3,8 @@ from bottle import route, run, request, abort, static_file
 from fsm import TocMachine
 
 
-VERIFY_TOKEN = "Your Webhook Verify Token"
+
+VERIFY_TOKEN = "1234567890987654321"
 machine = TocMachine(
     states=[
         'user',
@@ -54,6 +55,7 @@ def setup_webhook():
 
 @route("/webhook", method="POST")
 def webhook_handler():
+    print('teset')
     body = request.json
     print('\nFSM STATE: ' + machine.state)
     print('REQUEST BODY: ')
