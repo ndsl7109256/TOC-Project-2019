@@ -1,51 +1,51 @@
-from bs4 import BeautifulSoup
+from PIL import Image, ImageDraw, ImageFont
 
-html = """
-<table>
-    <tr>
-        <td>船名</td>
-        <td>航次</td>
-        <td>提单号</td>
-        <td>箱号</td>
-        <td>报关单号</td>
-        <td>作业码头</td>
-        <td>海关放行状态</td>
-        <td>EDI中心接收时间</td>
-        <td>序列号</td>
-    </tr>
-    <tr>
-        <td>CSCL OSAKA</td>
-        <td>8197W</td>
-        <td>KTSNSHA9AA003</td>
-        <td>CSLU1106216</td>
-        <td>220120161011282136</td>
-        <td>外二期</td>
-        <td>已放行</td>
-        <td>201611161013</td>
-        <td>400094490047</td>
-    </tr>
-    <tr>
-        <td>CSCL OSAKA</td>
-        <td>8197W</td>
-        <td>KTSNSHA9AA003</td>
-        <td>CSLU1374965</td>
-        <td>220120161011282136</td>
-        <td>外二期</td>
-        <td>已放行</td>
-        <td>201611161013</td>
-        <td>400094490047</td>
-    </tr>
-</table>
-"""
-soup = BeautifulSoup(html, 'html.parser')
-data_list = []  # 结构: [dict1, dict2, ...], dict结构{'船名': ship_name, '航次': voyage, '提单号': bill_num, '作业码头': wharf}
-for idx, tr in enumerate(soup.find_all('tr')):
-    if idx != 0:
-        tds = tr.find_all('td')
-        data_list.append({
-            '船名': tds[0].get_text(),
-            '航次': tds[1].contents[0],
-            '提单号': tds[2].contents[0],
-            '作业码头': tds[5].contents[0]
-        })
-print(data_list)
+im = Image.open( "bk.png" )
+
+ag = Image.open( "agree.png")
+op = Image.open("oppose.png")
+                               
+
+
+f = open('14.ss','r')
+
+AA = 'oppose'
+toW=''
+c = 0
+r = []
+for line in f:    
+    c = c+1
+    r.append(line)
+   
+if AA == 'agree' :
+    i =int(r[0])
+    i = i + 1
+    r[0] = str(i)
+if AA == 'oppose' :
+    i =int(r[1])
+    i = i + 1
+    r[1] = str(i)
+
+
+toW=r[0]+r[1]
+
+t1 = float(r[0])
+t2 = float(r[1])
+ar = 100*t1/(t2+t1)
+opr = 100 - ar
+
+print("ar:"+str(ar))
+print("opr:"+str(opr))
+
+print(toW)
+
+n = open('14.ss','w+')
+n.seek(0)
+n.write(toW)
+
+ag = ag.resize( (5*int(ar), 50), Image.BILINEAR )
+op = op.resize( (5*int(opr),50), Image.BILINEAR )
+im.paste(ag,(100,500))
+im.paste(op,(100+5*int(ar),500))
+
+im.save( "rate.png" )
