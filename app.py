@@ -9,9 +9,22 @@ machine = TocMachine(
     states=[
         'user',
         'state1',
-        'state2'
+        'state2',
+        'state3',
+        
+        'TaipeiMayor',
+        'KaohsiungMayor',
+        'TaipeiRepresentative',
+        'TaipeiRepresentative1',
+        'TaipeiRepresentative2',
+        'TaipeiRepresentative3',
+        'KaohsiungRepresentative',
+        'KaohsiungRepresentative1',
+        'KaohsiungRepresentative2',
+        'KaohsiungRepresentative3'
     ],
     transitions=[
+        
         {
             'trigger': 'advance',
             'source': 'user',
@@ -25,10 +38,83 @@ machine = TocMachine(
             'conditions': 'is_going_to_state2'
         },
         {
+            'trigger': 'advance',
+            'source': 'state2',
+            'dest': 'TaipeiRepresentative',
+            'conditions': 'is_going_to_TaipeiRepresentative'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'TaipeiRepresentative',
+            'dest': 'TaipeiRepresentative1',
+            'conditions': 'is_going_to_TaipeiRepresentative1'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'TaipeiRepresentative',
+            'dest': 'TaipeiRepresentative2',
+            'conditions': 'is_going_to_TaipeiRepresentative2'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'TaipeiRepresentative',
+            'dest': 'TaipeiRepresentative3',
+            'conditions': 'is_going_to_TaipeiRepresentative3'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'state2',
+            'dest': 'KaohsiungRepresentative',
+            'conditions': 'is_going_to_KaohsiungRepresentative'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'KaohsiungRepresentative',
+            'dest': 'KaohsiungRepresentative1',
+            'conditions': 'is_going_to_KaohsiungRepresentative1'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'KaohsiungRepresentative',
+            'dest': 'KaohsiungRepresentative2',
+            'conditions': 'is_going_to_KaohsiungRepresentative2'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'KaohsiungRepresentative',
+            'dest': 'KaohsiungRepresentative3',
+            'conditions': 'is_going_to_KaohsiungRepresentative3'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'state1',
+            'dest': 'TaipeiMayor',
+            'conditions': 'is_going_to_TaipeiMayor'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'state1',
+            'dest': 'KaohsiungMayor',
+            'conditions': 'is_going_to_KaohsiungMayor'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'user',
+            'dest': 'state3',
+            'conditions': 'is_going_to_state3'
+        },
+        {
             'trigger': 'go_back',
             'source': [
-                'state1',
-                'state2'
+                'KaohsiungMayor',
+                'TaipeiMayor',
+                'KaohsiungRepresentative1',
+                'KaohsiungRepresentative2',
+                'KaohsiungRepresentative3',
+                'TaipeiRepresentative1',
+                'TaipeiRepresentative2',
+                'TaipeiRepresentative3',
+                'state3'
             ],
             'dest': 'user'
         }
