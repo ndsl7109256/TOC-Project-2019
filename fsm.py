@@ -2,7 +2,7 @@ from transitions.extensions import GraphMachine
 
 from utils import send_text_message
 from utils import send_image_url
-
+from gp import candidate
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(
@@ -37,7 +37,9 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         #send_text_message(sender_id, "I'm entering state2")
-        send_image_url(sender_id, 'https://i.imgur.com/QZG2ALE.png')
+        print(candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s63000030000000000.html'))
+        # send_image_url(sender_id, "https://i.imgur.com/TD6h7i9.png")
+        send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s63000030000000000.html'))
         self.go_back()
 
     def on_exit_state2(self):
