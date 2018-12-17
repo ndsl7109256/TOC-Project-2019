@@ -21,7 +21,11 @@ machine = TocMachine(
         'KaohsiungRepresentative',
         'KaohsiungRepresentative1',
         'KaohsiungRepresentative2',
-        'KaohsiungRepresentative3'
+        'KaohsiungRepresentative3',
+        'Referendum14',
+        'Referendum14Agree',
+        'Referendum14Oppose',
+        'NotState'
     ],
     transitions=[
         
@@ -104,6 +108,24 @@ machine = TocMachine(
             'conditions': 'is_going_to_state3'
         },
         {
+            'trigger': 'advance',
+            'source': 'state3',
+            'dest': 'Referendum14',
+            'conditions': 'is_going_to_Referendum14'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'Referendum14',
+            'dest': 'Referendum14Agree',
+            'conditions': 'is_going_to_Referendum14Agree'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'Referendum14',
+            'dest': 'Referendum14Oppose',
+            'conditions': 'is_going_to_Referendum14Oppose'
+        },
+        {
             'trigger': 'go_back',
             'source': [
                 'KaohsiungMayor',
@@ -114,7 +136,8 @@ machine = TocMachine(
                 'TaipeiRepresentative1',
                 'TaipeiRepresentative2',
                 'TaipeiRepresentative3',
-                'state3'
+                'Referendum14Agree',
+                'Referendum14Oppose'
             ],
             'dest': 'user'
         }

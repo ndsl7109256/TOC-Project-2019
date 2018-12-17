@@ -1,4 +1,4 @@
 from gp import candidate
+from gp import opinionPoll
 
-
-print(candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/TC/s63000000000000000.html'))
+print(opinionPoll('14','agree','Fuck'))

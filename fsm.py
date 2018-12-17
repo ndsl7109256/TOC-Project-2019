@@ -4,6 +4,7 @@ from utils import send_text_message
 from utils import send_image_url
 from utils import send_button_message
 from gp import candidate
+from gp import opinionPoll
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(
@@ -174,12 +175,11 @@ class TocMachine(GraphMachine):
         print("I'm entering state3")
 
         sender_id = event['sender']['id']
-        send_text_message(sender_id, "I'm entering state3")
+        send_text_message(sender_id, "請選擇欲參考的白話文")
         
         self.go_back()
 
-    def on_exit_state3(self):
-        print('Leaving state3')
+    
 
 
     def is_going_to_TaipeiMayor(self, event):
@@ -222,7 +222,55 @@ class TocMachine(GraphMachine):
 
 
 
+    def is_going_to_Referendum14(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '14'
+        return False
 
+
+
+    def on_enter_Referendum14(self, event):
+        print("I'm entering Referendum14")
+
+        sender_id = event['sender']['id']
+        send_text_message(sender_id, "如果同意")
+        send_text_message(sender_id, "將於民法婚姻章擴充配偶定義以規範同性婚姻，公投通過將保障同性婚姻納入民法，權利義務與現行一夫一妻相同。")
+        send_text_message(sender_id, "如果反對")
+        send_text_message(sender_id, "同志婚姻將有可能以專法形式呈現。")
+
+
+    def is_going_to_Referendum14Agree(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '同意'
+        return False
+
+
+
+    def on_enter_Referendum14Agree(self, event):
+        print("I'm entering Referendum14")
+
+        sender_id = event['sender']['id']
+        send_image_url(sender_id,opinionPoll('14','agree','Fuck'))
+        #send_image_url(sender_id, "https://i.imgur.com/TD6h7i9.png")
+        self.go_back()
+
+    def is_going_to_Referendum14Oppose(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '反對'
+        return False
+
+
+
+    def on_enter_Referendum14Oppose(self, event):
+        print("I'm entering Referendum14")
+
+        sender_id = event['sender']['id']
+        send_image_url(sender_id,opinionPoll('14','oppose','Fuck'))
+        self.go_back()
+        
     
 
     
