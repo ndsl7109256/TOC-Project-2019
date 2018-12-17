@@ -1,0 +1,11 @@
+graphviz
+libgraphviz-dev
+pkg-config
+requests
+pyimgur
+bs4
+PIL
+transitions
+google-api-python-client
+oauth2client
+
