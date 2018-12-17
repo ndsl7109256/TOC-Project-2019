@@ -3,6 +3,17 @@ import pyimgur
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
 
+#from __future__ import print_function
+from googleapiclient.discovery import build
+from httplib2 import Http
+from oauth2client import file, client, tools
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
+
+# The ID and range of a sample spreadsheet.
+SAMPLE_SPREADSHEET_ID = '1njdbmnp042pPbi5jqzCWzu2Ffr0wYOAtQKcJnSMvXwc'
+SAMPLE_RANGE_NAME = '14!A1:E'
 
 
 def candidate(url):
@@ -58,53 +69,70 @@ def opinionPoll(number,AOO,toPrint):
     ag = Image.open( "agree.png")
     op = Image.open("oppose.png")
                                 
-    SF = number+'.ss'
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('sheets', 'v4', http=creds.authorize(Http()))
 
-    f = open(SF,'r')
-
+    # Call the Sheets API
+    sheet = service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range=SAMPLE_RANGE_NAME).execute()
+    values = result.get('values', [])
     AA = AOO
-    c = 0
     r = [] #int
     a = [] #str
-    for line in f:    
-        c = c+1
-        r.append(int(line))
-    
-    if AA == 'agree' :
+    if not values:
+        print('No data found.')
+    else:
+        print('Name, Major:')
+        for row in values:
+            # Print columns A and E, which correspond to indices 0 and 4.
+            r.append(int(row[0]))
+            
+
+    if AA == 'agree':
         r[0] = r[0] + 1
-        a.append(str(r[0]))
-    else :
-        a.append(str(r[0]))
-    if AA == 'oppose' :
-        r[1] = r[1] + 1
-        a.append(str(r[1]))
-    else :
-        a.append(str(r[1]))
+    if AA == 'oppose':
+        r[1] = r[1] + 1    
+
+    a.append(str(r[0]))
+    a.append(str(r[1]))
+
+    values = [
+    [
+        a[0]
+    ],
+    [
+        a[1]
+    ]
+    # Additional rows ...
+    ]
+    body = {
+    'values': values
+    }
+    result = service.spreadsheets().values().update(
+    spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME,
+    valueInputOption='RAW', body=body).execute()
 
     t1 = float(r[0])
     t2 = float(r[1])
-    ar = 100*t1/(t2+t1)
-    opr = 100 - ar
+    ar = 100*t1/(t1+t2)
+    opr = 100 -ar
 
-    print("ar:"+str(ar))
-    print("opr:"+str(opr))
-    f.close()
-
-    n = open(SF,'w+')
-    n.seek(0)
-    n.write(a[0])
-    n.write("\n")
-    n.write(a[1])
-    n.close()
     draw = ImageDraw.Draw( im )
     
     smallfont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",28)
-    largefont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",56)
+    largefont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",46)
 
-    draw.text( (95,300),toPrint,font=largefont,fill=(128,128,128))
+    draw.text( (30,300),toPrint,font=largefont,fill=(128,128,128))
     draw.text( (95,460),'有'+a[0]+'人支持這項公投案',font=smallfont,fill=(128,128,128))
     draw.text( (475,550),'有'+a[1]+'人反對這項公投案',font=smallfont,fill=(128,128,128))
 
+    print(a[0])
+    print(a[1])
     ag = ag.resize( (7*int(ar), 50), Image.BILINEAR )
     op = op.resize( (7*int(opr),50), Image.BILINEAR )
     im.paste(ag,(100,500))

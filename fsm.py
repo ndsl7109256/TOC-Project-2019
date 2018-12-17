@@ -252,7 +252,7 @@ class TocMachine(GraphMachine):
         print("I'm entering Referendum14")
 
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','agree','Fuck'))
+        send_image_url(sender_id,opinionPoll('14','agree','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻關係'))
         #send_image_url(sender_id, "https://i.imgur.com/TD6h7i9.png")
         self.go_back()
 
@@ -268,7 +268,7 @@ class TocMachine(GraphMachine):
         print("I'm entering Referendum14")
 
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','oppose','Fuck'))
+        send_image_url(sender_id,opinionPoll('14','oppose','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻關係'))
         self.go_back()
         
     
