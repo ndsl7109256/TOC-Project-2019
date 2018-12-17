@@ -177,7 +177,7 @@ class TocMachine(GraphMachine):
         sender_id = event['sender']['id']
         send_text_message(sender_id, "請選擇欲參考的白話文")
         
-        self.go_back()
+       
 
     
 
