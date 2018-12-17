@@ -88,14 +88,14 @@ def opinionPoll(number,AOO,toPrint):
 
     print("ar:"+str(ar))
     print("opr:"+str(opr))
-
+    f.close()
 
     n = open(SF,'w+')
     n.seek(0)
     n.write(a[0])
     n.write("\n")
     n.write(a[1])
-
+    n.close()
     draw = ImageDraw.Draw( im )
     
     smallfont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",28)
