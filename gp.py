@@ -13,7 +13,7 @@ SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1njdbmnp042pPbi5jqzCWzu2Ffr0wYOAtQKcJnSMvXwc'
-SAMPLE_RANGE_NAME = '14!A1:E'
+
 
 
 def candidate(url,toPrint):
@@ -65,6 +65,10 @@ def candidate(url,toPrint):
 
 
 def opinionPoll(number,AOO,toPrint):
+
+    SAMPLE_RANGE_NAME = number+'!A1:E'
+
+
     im = Image.open( "bk.png" )
 
     ag = Image.open( "agree.png")
@@ -128,9 +132,9 @@ def opinionPoll(number,AOO,toPrint):
     smallfont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",28)
     largefont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",46)
 
-    draw.text( (30,300),toPrint,font=largefont,fill=(128,128,128))
+    draw.text( (20,250),toPrint,font=largefont,fill=(128,128,128))
     draw.text( (95,460),'有'+a[0]+'人支持這項公投案',font=smallfont,fill=(128,128,128))
-    draw.text( (475,550),'有'+a[1]+'人反對這項公投案',font=smallfont,fill=(128,128,128))
+    draw.text( (520,550),'有'+a[1]+'人反對這項公投案',font=smallfont,fill=(128,128,128))
 
     print(a[0])
     print(a[1])

@@ -298,8 +298,8 @@ class TocMachine(GraphMachine):
         print("I'm entering Referendum14")
 
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','agree','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻關係'))
-        #send_image_url(sender_id, "https://i.imgur.com/TD6h7i9.png")
+        send_image_url(sender_id,opinionPoll('14','agree','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'))
+        
         self.go_back()
 
     def is_going_to_Referendum14Oppose(self, event):
@@ -314,11 +314,58 @@ class TocMachine(GraphMachine):
         print("I'm entering Referendum14")
 
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','oppose','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻關係'))
+        send_image_url(sender_id,opinionPoll('14','oppose','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'))
         self.go_back()
         
-    
+    ############################################
+    def is_going_to_Referendum15(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '15'
+        return False
 
+
+
+    def on_enter_Referendum15(self, event):
+        print("I'm entering Referendum15")
+
+        sender_id = event['sender']['id']
+        send_text_message(sender_id, "如果同意")
+        send_text_message(sender_id, "主張性別教育應確實包含情感教育、性教育、尊重同志教育。公投案若通過，將使以上三者由「細則」提升到「法律」")
+        send_text_message(sender_id, "如果反對")
+        send_text_message(sender_id, "維持現狀，仍以性平法細則呈現")
+
+
+    def is_going_to_Referendum15Agree(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '同意'
+        return False
+
+
+
+    def on_enter_Referendum15Agree(self, event):
+        print("I'm entering Referendum15")
+
+        sender_id = event['sender']['id']
+        send_image_url(sender_id,opinionPoll('15','agree','是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'))
+        
+        self.go_back()
+
+    def is_going_to_Referendum15Oppose(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() == '反對'
+        return False
+
+
+
+    def on_enter_Referendum15Oppose(self, event):
+        print("I'm entering Referendum15")
+
+        sender_id = event['sender']['id']
+        send_image_url(sender_id,opinionPoll('15','oppose','是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'))
+        self.go_back()
     
 
 
