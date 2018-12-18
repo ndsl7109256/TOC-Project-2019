@@ -41,27 +41,25 @@ def send_image_url(id, img_url):
 
     
 
-def send_button_message(id, text, buttons):
-    url = "{0}/me/messages?access_token={1}".format(GRAPH_URL, ACCESS_TOKEN)
+def send_button_message(fb_id, text, buttons):
+    
+
     payload = {
         "recipient": {"id": id},
         "message": {
             "attachment":{
                 "type":"template", 
                 "payload":{
-                    "template_type":"generic",
-                    "elements": [
-                        {
-                            "title":text,
-                            "buttons":buttons
-                        }
-                    ]
+                    "template_type":"button",
+                    "text":text,
+                    "buttons":buttons
                 }   
             }
         }
         
     }
+
     response = requests.post(url, json=payload)
 
-    return response    
+    return response  
 

@@ -13,7 +13,7 @@ machine = TocMachine(
         'state3',
         
         'TaipeiMayor',
-        'KaohsiungMayor',
+        
         'TaipeiRepresentative',
         'TaipeiRepresentative1',
         'TaipeiRepresentative2',
@@ -97,12 +97,6 @@ machine = TocMachine(
         },
         {
             'trigger': 'advance',
-            'source': 'state1',
-            'dest': 'KaohsiungMayor',
-            'conditions': 'is_going_to_KaohsiungMayor'
-        },
-        {
-            'trigger': 'advance',
             'source': 'user',
             'dest': 'state3',
             'conditions': 'is_going_to_state3'
@@ -128,7 +122,6 @@ machine = TocMachine(
         {
             'trigger': 'go_back',
             'source': [
-                'KaohsiungMayor',
                 'TaipeiMayor',
                 'KaohsiungRepresentative1',
                 'KaohsiungRepresentative2',
@@ -183,4 +176,4 @@ def show_fsm():
 
 
 if __name__ == "__main__":
-    run(host="0.0.0.0", port=5000, debug=True, reloader=True)
+    run(host="localhost", port=5000, debug=True, reloader=True)
