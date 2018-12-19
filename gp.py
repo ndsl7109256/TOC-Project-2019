@@ -131,8 +131,9 @@ def opinionPoll(number,AOO,toPrint):
     
     smallfont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",28)
     largefont=ImageFont.truetype("rounded-mplus-2m-bold.ttf",46)
-
-    draw.text( (20,250),toPrint,font=largefont,fill=(128,128,128))
+    large = ImageFont.truetype("rounded-mplus-2m-bold.ttf",170)
+    draw.text( (650,30),number,font=large,fill=(255,117,117))
+    draw.text( (95,220),toPrint,font=largefont,fill=(128,128,128))
     draw.text( (95,460),'有'+a[0]+'人支持這項公投案',font=smallfont,fill=(128,128,128))
     draw.text( (520,550),'有'+a[1]+'人反對這項公投案',font=smallfont,fill=(128,128,128))
 
