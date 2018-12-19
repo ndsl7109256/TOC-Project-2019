@@ -96,6 +96,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s63000010000000000.html','台北市士林北投區議員候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()
 
     def is_going_to_TaipeiRepresentative2(self, event):
@@ -109,6 +110,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s63000020000000000.html','台北市南港內湖區議員候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()
 
     def is_going_to_TaipeiRepresentative3(self, event):
@@ -122,6 +124,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s63000030000000000.html','台北市松山信義區議員候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()        
 
 
@@ -154,6 +157,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s64000010000000000.html','高雄市旗美六地區議員候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()
 
     def is_going_to_KaohsiungRepresentative2(self, event):
@@ -167,6 +171,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s64000020000000000.html','高雄市路竹地區議員候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()
 
     def is_going_to_KaohsiungRepresentative3(self, event):
@@ -180,6 +185,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate('http://vote.2018.nat.gov.tw/pc/zh_TW/T1/s64000030000000000.html','高雄市岡山地區候選人得票數'))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()       
 
 
@@ -270,6 +276,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id, candidate(ur,tp))
+        send_text_message(sender_id, "以上為查詢的結果，你可以繼續使用本Chat+bot的其他功能")
         self.go_back()
 
     def on_exit_TaipeiMayor(self):
@@ -348,6 +355,7 @@ class TocMachine(GraphMachine):
             send_text_message(sender_id, "如果反對")
             send_text_message(sender_id, "維持現狀，於2025年全面廢止核能發電。")
 
+        send_text_message(sender_id, "如果是你的話，會「支持」還是「反對」呢")
 
     def is_going_to_Referendum14Agree(self, event):
         if event.get("message"):
@@ -382,8 +390,10 @@ class TocMachine(GraphMachine):
             top = '是否同意'+'\n'+'廢除電業法「核能発電設備應於'+'\n'+'中華民國114年以前全部停止運轉」'+'\n'+'之條文?'
 
         sender_id = event['sender']['id']
+        
         send_image_url(sender_id,opinionPoll(number,'agree',top))
         
+        send_text_message(sender_id, "以上為我們所做簡單的民意調查，你可以繼續使用本Chat bot的其他功能")
         self.go_back()
 
     def is_going_to_Referendum14Oppose(self, event):
@@ -421,6 +431,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_image_url(sender_id,opinionPoll(number,'oppose',top))
+        send_text_message(sender_id, "以上為我們所做簡單的民意調查，你可以繼續使用本Chat bot的其他功能")
         self.go_back()
         
 
