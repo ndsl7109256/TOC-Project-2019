@@ -15,7 +15,21 @@ class TocMachine(GraphMachine):
             **machine_configs
         )
 
-    
+    def is_going_to_tutorial(self, event):
+        if event.get("message"):
+            text = event['message']['text']
+            return text.lower() != '市長' and text.lower() != '議員' and text.lower() != '公投白話文'
+        return False
+
+    def on_enter_tutorial(self, event):
+        print("I'm entering tutorial")
+
+        sender_id = event['sender']['id']
+        responese = send_text_message(sender_id, "歡迎使用選舉哪回事Chat Bot!")
+        responese = send_text_message(sender_id, "你可以輸入「市長」查看各縣市市長得票情形")
+        responese = send_text_message(sender_id, "也可以輸入「議員」查看各縣市議員得票情形")
+        responese = send_text_message(sender_id, "覺得公投題目看不懂也可以輸入「公投白話文」為您解惑")
+        self.go_back()
 
     def is_going_to_state1(self, event):
         if event.get("message"):
@@ -271,7 +285,9 @@ class TocMachine(GraphMachine):
     def is_going_to_Referendum14(self, event):
         if event.get("message"):
             text = event['message']['text']
-            return text.lower() == '14'
+            global number
+            number = text
+            return text.lower() == '7' or text.lower() == '8' or text.lower() == '9' or text.lower() == '10' or text.lower() == '11' or text.lower() == '12' or text.lower() == '13' or text.lower() == '14' or text.lower() == '15' or text.lower() == '16' 
         return False
 
 
@@ -280,10 +296,57 @@ class TocMachine(GraphMachine):
         print("I'm entering Referendum14")
 
         sender_id = event['sender']['id']
-        send_text_message(sender_id, "如果同意")
-        send_text_message(sender_id, "將於民法婚姻章擴充配偶定義以規範同性婚姻，公投通過將保障同性婚姻納入民法，權利義務與現行一夫一妻相同。")
-        send_text_message(sender_id, "如果反對")
-        send_text_message(sender_id, "同志婚姻將有可能以專法形式呈現。")
+        global number
+        if number == '7':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "每年必須調降1%火力發電比例")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "維持現狀，並從2017年的84.4%降至2025年80%")
+        if number == '8':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "不再新建、擴建燃煤電廠或機組")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "持續新建、擴建")
+        if number == '9':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "維持現有食安標準，禁止日本核災地區食品進口")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "未來將有可能開放核食")
+        if number == '10':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "主張婚姻限定在一男一女，明確定義婚姻是一男一女")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "立法者可以選擇修改民法婚姻章或是另立專法，以保障同性者可以結婚")
+        if number == '11':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "刪除性平法細則「同志教育」字樣，國中小將避談同志的性平教育")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "維持現狀，保留尊重同志內容")
+        if number == '12':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "將於民法婚姻章擴充配偶定義以規範同性婚姻，公投通過將保障同性婚姻納入民法，權利義務與現行一夫一妻相同。")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "同志婚姻將有可能以專法形式呈現。")
+        if number == '13':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "主張以民法外的方式，規範同性結合的權利義務。(立同婚專法)")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "同志婚姻將於民法中進行修改")
+        if number == '14':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "將於民法婚姻章擴充配偶定義以規範同性婚姻，公投通過將保障同性婚姻納入民法，權利義務與現行一夫一妻相同。")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "同志婚姻將有可能以專法形式呈現。")
+        if number == '15':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "主張性別教育應確實包含情感教育、性教育、尊重同志教育。公投案若通過，將使以上三者由「細則」提升到「法律」")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "維持現狀，仍以性平法細則呈現")
+        if number == '16':
+            send_text_message(sender_id, "如果同意")
+            send_text_message(sender_id, "保留核電，以作為轉型過度的基礎電力。")
+            send_text_message(sender_id, "如果反對")
+            send_text_message(sender_id, "維持現狀，於2025年全面廢止核能發電。")
 
 
     def is_going_to_Referendum14Agree(self, event):
@@ -296,9 +359,30 @@ class TocMachine(GraphMachine):
 
     def on_enter_Referendum14Agree(self, event):
         print("I'm entering Referendum14")
+        global number
+        if number == '7':
+            top = '是否同意'+'\n'+'以平均每年至少降低1%之方式'+'\n'+'逐年降低火力發電廠發電量'
+        if number == '9':
+            top = '是否同意'+'\n'+'政府維持禁止開放'+'\n'+'日本福島311核災相関地區農產品及食品進口'
+        if number == '8':
+            top = '是否同意'+'\n'+'確立停止新建、擴建'+'\n'+'任何燃煤發電廠或發電機組(包括深澳電廠擴建)之能源政策'
+        if number == '10':
+            top = '是否同意'+'\n'+'民法婚姻規定應限定在一男一女的結合'
+        if number == '11':
+            top = '是否同意'+'\n'+'在國民教育階段內(國中及國小)'+'\n'+'教育部及各級學校不應對學生實施性別平等教育法施行細則所定之同志教育'
+        if number == '12':
+            top = '是否同意'+'\n'+'以民法婚姻規定以外之其他形式'+'\n'+'來保障同性別二人經營永久共同生活的權益'
+        if number == '13':
+            top = '是否同意'+'\n'+' 以「台灣」(taiwan)為全名'+'\n'+'申請參加所有國際運動賽事及2020年東京奧運'
+        if number == '14':
+            top = '是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'
+        if number == '15':
+            top = '是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'
+        if number == '16':
+            top = '是否同意'+'\n'+'廢除電業法「核能發電設備'+'\n'+'應於中華民國114年以前全部停止運轉」之條文?'
 
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','agree','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'))
+        send_image_url(sender_id,opinionPoll(number,'agree',top))
         
         self.go_back()
 
@@ -313,60 +397,34 @@ class TocMachine(GraphMachine):
     def on_enter_Referendum14Oppose(self, event):
         print("I'm entering Referendum14")
 
+        global number
+        if number == '7':
+            top = '是否同意'+'\n'+'以平均每年至少降低1%之方式'+'\n'+'逐年降低火力發電廠發電量'
+        if number == '9':
+            top = '是否同意'+'\n'+'政府維持禁止開放'+'\n'+'日本福島311核災相関地區農產品及食品進口'
+        if number == '8':
+            top = '是否同意'+'\n'+'確立停止新建、擴建'+'\n'+'任何燃煤發電廠或發電機組(包括深澳電廠擴建)之能源政策'
+        if number == '10':
+            top = '是否同意'+'\n'+'民法婚姻規定應限定在一男一女的結合'
+        if number == '11':
+            top = '是否同意'+'\n'+'在國民教育階段內(國中及國小)'+'\n'+'教育部及各級學校不應對學生實施性別平等教育法施行細則所定之同志教育'
+        if number == '12':
+            top = '是否同意'+'\n'+'以民法婚姻規定以外之其他形式'+'\n'+'來保障同性別二人經營永久共同生活的權益'
+        if number == '13':
+            top = '是否同意'+'\n'+' 以「台灣」(taiwan)為全名'+'\n'+'申請參加所有國際運動賽事及2020年東京奧運'
+        if number == '14':
+            top = '是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'
+        if number == '15':
+            top = '是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'
+        if number == '16':
+            top = '是否同意'+'\n'+'廢除電業法「核能發電設備'+'\n'+'應於中華民國114年以前全部停止運轉」之條文?'
+
         sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('14','oppose','是否同意'+'\n'+'以民法婚姻章保障同性別二人建立婚姻関係'))
+        send_image_url(sender_id,opinionPoll(number,'oppose',top))
         self.go_back()
         
-    ############################################
-    def is_going_to_Referendum15(self, event):
-        if event.get("message"):
-            text = event['message']['text']
-            return text.lower() == '15'
-        return False
 
-
-
-    def on_enter_Referendum15(self, event):
-        print("I'm entering Referendum15")
-
-        sender_id = event['sender']['id']
-        send_text_message(sender_id, "如果同意")
-        send_text_message(sender_id, "主張性別教育應確實包含情感教育、性教育、尊重同志教育。公投案若通過，將使以上三者由「細則」提升到「法律」")
-        send_text_message(sender_id, "如果反對")
-        send_text_message(sender_id, "維持現狀，仍以性平法細則呈現")
-
-
-    def is_going_to_Referendum15Agree(self, event):
-        if event.get("message"):
-            text = event['message']['text']
-            return text.lower() == '同意'
-        return False
-
-
-
-    def on_enter_Referendum15Agree(self, event):
-        print("I'm entering Referendum15")
-
-        sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('15','agree','是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'))
-        
-        self.go_back()
-
-    def is_going_to_Referendum15Oppose(self, event):
-        if event.get("message"):
-            text = event['message']['text']
-            return text.lower() == '反對'
-        return False
-
-
-
-    def on_enter_Referendum15Oppose(self, event):
-        print("I'm entering Referendum15")
-
-        sender_id = event['sender']['id']
-        send_image_url(sender_id,opinionPoll('15','oppose','是否同意，以『性別平等教育法』'+'\n'+'明定在國民教育各階段實施性別平等教育'+'\n'+'且應涵蓋情感教育.性教育.同志教育等課程'))
-        self.go_back()
     
 
 
-      
+    
