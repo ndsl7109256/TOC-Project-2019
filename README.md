@@ -1,63 +1,42 @@
-# TOC Project 2019
 
-Template Code for TOC Project 2019
 
-A Facebook messenger bot based on a finite state machine
+# **Election is Strange** Chat bot
+It is the program for the Facebook Chat bot that to search results of local election in Taiwan ,make the referendum easy to read and make a simple opinion poll.
+## Why do I want to do this chat bot?
+Honesytly,I felt disappointed about the medias in Taiwan.Instead of delivering practical message,they spent most of the time for the meaningless fight between candidates.
 
-More details in the [Slides](https://hackmd.io/p/SkpBR-Yam#/)
+What's worse,fallacy about some issues was spreaded widely with community software.
 
-## Setup
+In order to  deny the rumor,I try to do this chat bot,making a wish to make Taiwan better:))
+## Simple guide
+- Type anything to get the tutorial of the chat bot.
+![](https://i.imgur.com/axfzCLU.png)
 
-### Prerequisite
-* Python 3
-* Facebook Page and App
-* HTTPS Server
+- To get the election result of the mayor,just type "市長",and type which country you want to search.
+![](https://i.imgur.com/j9VhNB0.png)
 
-#### Install Dependency
-```sh
-pip install -r requirements.txt
-```
+- Similarly,to search result of city councilmen,type "議員",and tpye which country and which legion you want to search.
+![](https://i.imgur.com/o7Dp1ZU.png)
 
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
+- To get the information about the referendums,type "公投白話文",and choose which issue you want to know.
+![](https://i.imgur.com/rdFc9r9.png)
 
-#### Secret Data
-
-`VERIFY_TOKEN` and `ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-./ngrok http 5000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-## Finite State Machine
-![fsm](./img/show-fsm.png)
-
-## Usage
-The initial state is set to `user`.
-
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
+- Here,we will do a simple opinon poll,type "同意" or "反對" to express your thought.(your choose would be record in a google sheet)
+![](https://i.imgur.com/DTT8Nwu.png)
 
 ## Reference
-[TOC-Project-2017](https://github.com/Lee-W/TOC-Project-2017) ❤️ [@Lee-W](https://github.com/Lee-W)
+[Useful Facebook chatbot guide from twtrubiks/facebook-messenger-bot-tutorial](https://github.com/twtrubiks/facebook-messenger-bot-tutorial)
+
+[Beautiful soup package to craw the information from the website](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+[PIL package to make photo](https://pillow.readthedocs.io/en/stable/)
+
+[Pyimgur package to post photo](https://github.com/Damgaard/PyImgur)
+
+
+[Read and Write data in Google sheet](https://developers.google.com/sheets/api/quickstart/python)
+
+## Font used
+[Setofont](https://www.justfont.com/fontdetail/147)
+
+[Rounded M+](http://jikasei.me/font/rounded-mplus/about.html)
